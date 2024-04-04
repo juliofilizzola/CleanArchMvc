@@ -5,9 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
+  
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <ProjectReference Include="..\CleanArchMvc.Domain.Tests\CleanArchMvc.Domain.Tests.csproj" />
   </ItemGroup>
 
 </Project>
