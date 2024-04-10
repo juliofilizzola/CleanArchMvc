@@ -20,6 +20,11 @@ public sealed class Category {
         Name = name;
     }
 
+    public void Update(String name) {
+        ValidateDomainName(name);
+        Name = name;
+    }
+
     private void ValidateDomainName(string name) {
         DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Invalid name.Name is Required");
 
