@@ -5,9 +5,4 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\CleanArchMvc.Domain.Tests\CleanArchMvc.Domain.Tests.csproj" />
-  </ItemGroup>
-
 </Project>
