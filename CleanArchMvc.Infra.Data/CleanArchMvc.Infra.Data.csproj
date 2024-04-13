@@ -4,6 +4,20 @@
     <ProjectReference Include="..\CleanArchMvc.Domain\CleanArchMvc.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="EntitiesConfiguration\" />
+    <Folder Include="Identity\" />
+    <Folder Include="Repository\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
