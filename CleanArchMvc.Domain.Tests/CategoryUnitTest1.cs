@@ -20,6 +20,14 @@ public class CategoryUnitTest1 {
     }
 
     [Fact]
+    public void CreateCategory_Name() {
+        Action action = () => new Category("te");
+        action.Should()
+            .Throw<CleanArchMvc.Domain.Validation.DomainExceptionValidation>()
+            .WithMessage("Invalid name, too short, minimum 3 characters");
+    }
+
+    [Fact]
     public void CreateCategory_ShortNameValue_DomainExceptionShortName()
     {
         Action action = () => new Category(1, "Ca");
