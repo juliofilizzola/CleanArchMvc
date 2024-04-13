@@ -28,7 +28,7 @@ public sealed class Category {
     private void ValidateDomainName(string name) {
         DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Invalid name.Name is Required");
 
-        DomainExceptionValidation.When(name.Length < 3, "Invalid name.Name, minimum 2 characters");
+        DomainExceptionValidation.When(name.Length < 3, "Invalid name, too short, minimum 3 characters");
     }
 
     private void ValidateDomainId(int id) {
