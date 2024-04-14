@@ -1,0 +1,13 @@
+﻿version: '3.7'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd" # Change this to your desired strong password
+      ACCEPT_EULA: "Y"
+    volumes:
+      - ./data:/var/opt/mssql
