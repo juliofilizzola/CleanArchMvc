@@ -12,7 +12,7 @@ public class Product : Base {
     public Category      Category           { get; private set; }
 
     public Product(string name, string description, decimal price, string image, int stock, int categoryId) {
-        ValidateDomain(name, description, stock, categoryId);
+        ValidateDomain(name, description, stock, categoryId, price, image);
         Name        = name;
         Description = description;
         Price       = price;
@@ -21,7 +21,7 @@ public class Product : Base {
     }
 
     public Product(int id, string name, string description, decimal price, string image, int stock, int categoryId) {
-        ValidateDomain(name, description, stock, categoryId);
+        ValidateDomain(name, description, stock, categoryId, price, image);
         ValidateIdDomain(id);
         Name        = name;
         Id          = id;
@@ -32,13 +32,19 @@ public class Product : Base {
     }
 
     private static void ValidateIdDomain(int id) {
-        DomainExceptionValidation.When(id < 0, "Invalid id");
+        DomainExceptionValidation.When(id < 0, "Invalid Id value");
     }
-    private static void ValidateDomain(string name, string description, int stock, int categoryId) {
+    private static void ValidateDomain(string name, string description, int stock, int categoryId, decimal price, string image) {
         DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Invalid name.Name is Required");
+        DomainExceptionValidation.When(name.Length < 3, "Invalid name, too short, minimum 3 characters");
+
         DomainExceptionValidation.When(string.IsNullOrEmpty(description), "Invalid Description is Required");
-        DomainExceptionValidation.When(name.Length < 3, "Invalid name.Name is Required");
         DomainExceptionValidation.When(description.Length < 3, "Invalid, Description is Required");
+
+        DomainExceptionValidation.When(stock <= 0, "Invalid stock value");
+        DomainExceptionValidation.When(price <= 0, "Invalid price value");
+
+        DomainExceptionValidation.When(image?.Length > 250 , "Invalid image name, too long, maximum 250 characters");
     }
 
 }
