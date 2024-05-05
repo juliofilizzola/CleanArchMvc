@@ -7,12 +7,12 @@ using CleanArchMvc.Domain.Interfaces;
 namespace CleanArchMvc.Application.Services
 {
     public class CategoryService(ICategoryRepository categoryRepository, IMapper mapper) : ICategoryService {
-        public async Task<CategoryDTO> Add(CategoryDTO categoryDTO)
+        public async Task<CategoryDTO> Add(CategoryDTO categoryDto)
         {
-            var body = mapper.Map<Category>(categoryDTO);
+            var body = mapper.Map<Category>(categoryDto);
             if (body == null) throw new BadImageFormatException();
             await categoryRepository.Create(body);
-            return categoryDTO;
+            return categoryDto;
         }
 
         public async Task<CategoryDTO> GetById(int? id)
@@ -39,11 +39,11 @@ namespace CleanArchMvc.Application.Services
             return removeResult != null;
         }
 
-        public async Task<CategoryDTO> Update(CategoryDTO categoryDTO)
+        public async Task<CategoryDTO> Update(CategoryDTO categoryDto)
         {
-            var bodyCategory = mapper.Map<Category>(categoryDTO);
+            var bodyCategory = mapper.Map<Category>(categoryDto);
             await categoryRepository.Update(bodyCategory);
-            return categoryDTO;
+            return categoryDto;
         }
     }
 }

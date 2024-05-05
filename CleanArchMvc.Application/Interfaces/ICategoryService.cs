@@ -1,9 +1,4 @@
 ﻿using CleanArchMvc.Application.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanArchMvc.Application.Interfaces
 {
@@ -11,8 +6,8 @@ namespace CleanArchMvc.Application.Interfaces
     {
         Task<IEnumerable<CategoryDTO>> GetCategories();
         Task<CategoryDTO> GetById(int? id);
-        Task<CategoryDTO> Add(CategoryDTO categoryDTO);
-        Task<CategoryDTO> Update(CategoryDTO categoryDTO);
+        Task<CategoryDTO> Add(CategoryDTO categoryDto);
+        Task<CategoryDTO> Update(CategoryDTO categoryDto);
         Task<Boolean> Remove(int? id);
     }
 }
