@@ -5,41 +5,41 @@ using System.ComponentModel;
 
 namespace CleanArchMvc.Application.DTO
 {
-    public class ProductDTO
+    public class ProductDto
     {
-        public int Id { get; set; }
+        public int Id { get; init; }
 
         [Required(ErrorMessage = "The Name is Required")]
         [MinLength(3)]
         [MaxLength(100)]
         [DisplayName("Name")]
-        public string Name { get; set; }
+        public string Name { get; init; }
 
         [Required(ErrorMessage = "The Description is Required")]
         [MinLength(5)]
         [MaxLength(200)]
         [DisplayName("Description")]
-        public string Description { get; set; }
+        public string Description { get; init; }
 
         [Required(ErrorMessage = "The Price is Required")]
         [Column(TypeName = "decimal(18,2)")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         [DataType(DataType.Currency)]
         [DisplayName("Price")]
-        public decimal Price { get; set; }
+        public decimal Price { get; init; }
 
         [Required(ErrorMessage = "The Stock is Required")]
         [Range(1, 9999)]
         [DisplayName("Stock")]
-        public int Stock { get; set; }
+        public int Stock { get; init; }
 
         [MaxLength(250)]
         [DisplayName("Product Image")]
-        public string Image { get; set; }
+        public string Image { get; init; }
 
-        public Category Category { get; set; }
+        public Category Category { get; init; }
 
         [DisplayName("Categories")]
-        public int CategoryId { get; set; }
+        public int CategoryId { get; init; }
     }
 }

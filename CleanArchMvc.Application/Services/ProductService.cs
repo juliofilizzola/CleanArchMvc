@@ -7,23 +7,23 @@ using CleanArchMvc.Domain.Interfaces;
 namespace CleanArchMvc.Application.Services
 {
     public class ProductService(IProductRepository productService, IMapper mapper) : IProductService {
-        public async Task<IEnumerable<ProductDTO>> GetProducts() {
+        public async Task<IEnumerable<ProductDto>> GetProducts() {
             var products = await productService.GetProductsAsync();
-            return mapper.Map<IEnumerable<ProductDTO>>(products);
+            return mapper.Map<IEnumerable<ProductDto>>(products);
         }
 
-        public async Task<ProductDTO> GetProductById(int? id) {
+        public async Task<ProductDto> GetProductById(int? id) {
             var product = await productService.GetByIdAsync(id);
-            return mapper.Map<ProductDTO>(product);
+            return mapper.Map<ProductDto>(product);
         }
 
-        public async Task<ProductDTO> Add(ProductDTO productDto) {
+        public async Task<ProductDto> Add(ProductDto productDto) {
             var bodyProduct = mapper.Map<Product>(productDto);
             await productService.CreateAsync(bodyProduct);
             return productDto;
         }
 
-        public async Task<ProductDTO> Update(ProductDTO productDto) {
+        public async Task<ProductDto> Update(ProductDto productDto) {
             var bodyProduct = mapper.Map<Product>(productDto);
             await productService.UpdateAsync(bodyProduct);
             return productDto;
