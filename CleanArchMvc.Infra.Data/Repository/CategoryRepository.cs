@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace CleanArchMvc.Infra.Data.Repository;
 
 public class CategoryRepository(ApplicationDbContext context) : ICategoryRepository {
-    private ApplicationDbContext _categoryContext = context;
+    private readonly ApplicationDbContext _categoryContext = context;
 
     public async Task<IEnumerable<Category>> GetCategories() {
         return await _categoryContext.Categories.ToListAsync();
