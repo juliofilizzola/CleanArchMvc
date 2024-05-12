@@ -9,6 +9,11 @@
     <ProjectReference Include="..\CleanArchMvc.Domain\CleanArchMvc.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Products\Handlers\" />
+    <Folder Include="Products\Queries\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
