@@ -8,7 +8,7 @@ public class Product : Base {
     public decimal Price       { get; private set; }
     public int     Stock       { get; private set; }
     public string  Image       { get; private set; }
-    public int     CategoryId  { get; private set; }
+    public int     CategoryId  { get; set; }
     public Category      Category           { get; private set; }
 
     public Product(string name, string description, decimal price, string image, int stock, int categoryId) {
@@ -29,6 +29,16 @@ public class Product : Base {
         Price       = price;
         Stock       = stock;
         Image       = image;
+    }
+
+    public void Update(string name, string description, decimal price, int stock, string image, int categoryId) {
+        ValidateDomain(name, description, stock, categoryId, price, image);
+        Name        = name;
+        Description = description;
+        Price       = price;
+        Stock       = stock;
+        Image       = image;
+        CategoryId  = categoryId;
     }
 
     private static void ValidateIdDomain(int id) {
