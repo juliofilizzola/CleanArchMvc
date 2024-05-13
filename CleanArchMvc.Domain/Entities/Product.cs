@@ -11,17 +11,16 @@ public class Product : Base {
     public int     CategoryId  { get; set; }
     public Category      Category           { get; private set; }
 
-    public Product(string name, string description, decimal price, string image, int stock, int categoryId, Category category) {
+    public Product(string name, string description, decimal price, string image, int stock, int categoryId) {
         ValidateDomain(name, description, stock, categoryId, price, image);
         Name        = name;
         Description = description;
         Price       = price;
         Stock       = stock;
-        Category = category;
         Image       = image;
     }
 
-    public Product(int id, string name, string description, decimal price, string image, int stock, int categoryId, Category category) {
+    public Product(int id, string name, string description, decimal price, string image, int stock, int categoryId) {
         ValidateDomain(name, description, stock, categoryId, price, image);
         ValidateIdDomain(id);
         Name        = name;
@@ -29,7 +28,6 @@ public class Product : Base {
         Description = description;
         Price       = price;
         Stock       = stock;
-        Category = category;
         Image       = image;
     }
 
