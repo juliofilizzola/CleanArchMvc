@@ -14,9 +14,19 @@ public class CategoriesController(ICategoryService categoryService) : Controller
         return View(categories);
     }
 
+    [HttpGet]
+    public IActionResult Delete() {
+        return View();
+    }
+
     [HttpDelete]
-    public async Task<IActionResult> Delete(int id) {
+    public async Task<IActionResult> Delete(int? id) {
+        if (id == null) return NotFound();
+
         var category = await _categoryService.Remove(id);
+        if (category) {
+            return RedirectToAction(nameof(System.Index));
+        }
         return View();
     }
 
@@ -37,14 +47,27 @@ public class CategoriesController(ICategoryService categoryService) : Controller
 
         return View(categoryDto);
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Create(CategoryDto category) {
-        if (ModelState.IsValid) {
-            await _categoryService.Add(category);
-            return RedirectToAction(nameof(System.Index));
+        if (!ModelState.IsValid) return View(category);
+        await _categoryService.Add(category);
+        return RedirectToAction(nameof(System.Index));
+
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(CategoryDto categoryDto) {
+        if (!ModelState.IsValid) return View(categoryDto);
+
+        try {
+            await _categoryService.Update(categoryDto);
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            throw;
         }
 
-        return View(category);
+        return RedirectToAction(nameof(Index));
     }
 }
