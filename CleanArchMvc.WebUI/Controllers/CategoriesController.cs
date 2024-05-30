@@ -15,13 +15,18 @@ public class CategoriesController(ICategoryService categoryService) : Controller
     }
 
     [HttpGet]
-    public IActionResult Delete() {
-        return View();
+    public async Task<IActionResult> Delete(int? id) {
+        var categoryDto = await _categoryService.GetById(id);
+        if (categoryDto == null) {
+            return NotFound();
+        }
+        return View(categoryDto);
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> Delete(int? id) {
+    [HttpPost]
+    public async Task<IActionResult> DeleteAction(int? id) {
         if (id == null) return NotFound();
+
 
         var category = await _categoryService.Remove(id);
         if (category) {
@@ -33,6 +38,21 @@ public class CategoriesController(ICategoryService categoryService) : Controller
     [HttpGet]
     public IActionResult Create() {
         return View();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Details(int? id) {
+        if (id == null) {
+            return NotFound();
+        }
+
+        var categoryDto = await _categoryService.GetById(id);
+
+        if (categoryDto == null) {
+            return NotFound();
+        }
+
+        return View(categoryDto);
     }
 
     [HttpGet]
