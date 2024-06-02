@@ -1,0 +1,13 @@
+﻿@model CleanArchMvc.WebUI.Models.ErrorViewModel
+
+@{
+ViewData["Title"] = "Erro";
+}
+
+<h1>Ocorreu um erro</h1>
+<h2>Status Code: @Model.StatusCode</h2>
+<p>@Model.Message</p>
+
+<p>
+    <a href="/" class="btn btn-primary">Voltar para a Página Inicial</a>
+</p>
