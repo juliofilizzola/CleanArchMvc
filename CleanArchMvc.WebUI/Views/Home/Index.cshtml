@@ -1,19 +1,19 @@
-﻿@page
-@model CleanArchMvc.WebUI.Views.Home.Index
-
-@{
-    Layout = null;
+﻿@{
+    ViewData["Title"] = "Home";
 }
 
-<!DOCTYPE html>
+<h1>Bem-vindo à CleanArchMvc API</h1>
+<p>Esta API permite gerenciar a criação de produtos e categorias de maneira eficiente e estruturada. Use os links abaixo para navegar e gerenciar seus produtos e categorias.</p>
 
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+<h2>Funcionalidades</h2>
+<ul>
+    <li>Criação, edição e exclusão de produtos</li>
+    <li>Gerenciamento de categorias</li>
+    <li>Listagem de produtos por categoria</li>
+</ul>
+
+<h2>Gerenciar</h2>
 <div>
-    Hello
+    <a asp-controller="Products" asp-action="Index" class="btn btn-primary">Gerenciar Produtos</a>
+    <a asp-controller="Categories" asp-action="Index" class="btn btn-secondary">Gerenciar Categorias</a>
 </div>
-</body>
-</html>
