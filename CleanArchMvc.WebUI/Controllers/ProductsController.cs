@@ -15,8 +15,19 @@ namespace CleanArchMvc.WebUI.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Index() {
-            var products = await _productService.GetProducts();
-            return View(products);
+            try {
+                var products = await _productService.GetProducts();
+                return View(products);
+            }
+            catch (Exception e) {
+                Console.WriteLine(e);
+                return View("NotFoundProduct");;
+            }
+        }
+
+        [HttpGet]
+        public IActionResult NotFoundProduct() {
+            return View();
         }
 
         [HttpGet]
@@ -28,10 +39,27 @@ namespace CleanArchMvc.WebUI.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Create(ProductDto dto) {
-            var dtoE = dto;
             if (!ModelState.IsValid) return await Create();
             await _productService.Add(dto);
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id) {
+            if (id == null) {
+                return NotFound();
+            }
+
+            var product = await _productService.GetProductById(id);
+            if (product == null) {
+                return NotFound();
+            }
+
+            var categories = await _categoryService.GetCategories();
+
+            ViewBag.CategoryId = new SelectList(categories, "Id", "Name", product.Category);
+
+            return View(product);
         }
 
 
