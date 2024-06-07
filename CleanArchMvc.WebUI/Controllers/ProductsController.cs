@@ -6,11 +6,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace CleanArchMvc.WebUI.Controllers
 {
     public class ProductsController : Controller {
-        private readonly ICategoryService _categoryService;
-        private readonly IProductService  _productService;
-        public ProductsController(IProductService productService, ICategoryService categoryService) {
+        private readonly ICategoryService    _categoryService;
+        private readonly IProductService     _productService;
+        private readonly IWebHostEnvironment _environment;
+        public ProductsController(IProductService productService, ICategoryService categoryService,
+                                  IWebHostEnvironment environment) {
             _productService  = productService;
             _categoryService = categoryService;
+            _environment = environment;
         }
 
         [HttpGet]
@@ -44,6 +47,7 @@ namespace CleanArchMvc.WebUI.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
         [HttpGet]
         public async Task<IActionResult> Edit(int? id) {
             if (id == null) {
@@ -62,6 +66,43 @@ namespace CleanArchMvc.WebUI.Controllers
             return View(product);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id) {
+            if (id == null){
+                return View("NotFoundProduct");
+            }
 
+            var product = await _productService.GetProductById(id);
+
+            if (product == null){
+                return View("NotFoundProduct");
+            }
+
+            return View(product);
+        }
+
+
+        [HttpPost(), ActionName("Delete")]
+        public async Task<IActionResult> Delete(int id) {
+            var productRemove = await _productService.Remove(id);
+            if (productRemove){
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id) {
+            var product = await _productService.GetProductById(id);
+            if (product == null){
+                return View("NotFoundProduct");
+            }
+            var wwwroot = _environment.WebRootPath;
+            var image   = Path.Combine(wwwroot, "images\\" + product.Image);
+            var exists  = System.IO.File.Exists(image);
+            ViewBag.ImageExist = exists;
+            return View(product);
+        }
     }
 }
