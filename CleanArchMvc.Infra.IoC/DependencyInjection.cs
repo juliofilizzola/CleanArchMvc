@@ -11,23 +11,22 @@ using Microsoft.Extensions.DependencyInjection;
 namespace CleanArchMvc.Infra.IoC;
 
 public static class DependencyInjection {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection service, IConfiguration config) {
-        service.AddDbContext<ApplicationDbContext>(opt =>
-            opt.UseSqlServer(config.GetConnectionString("DefaultConnection"),
-                b=> b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
-                )
-        );
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration) {
+        services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"
+            ), b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
-        service.AddScoped<ICategoryRepository, CategoryRepository>();
-        service.AddScoped<IProductRepository, ProductRepository>();
-        service.AddScoped<IProductService, ProductService>();
-        service.AddScoped<ICategoryService, CategoryService>();
-        service.AddAutoMapper(typeof(DomainToDtoMappingProfile));
-        service.AddAutoMapper(typeof(DTOToCommandMappingProfile));
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
+
+        services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<ICategoryService, CategoryService>();
+
+        services.AddAutoMapper(typeof(DomainToDtoMappingProfile));
 
         var applicationAssembly = AppDomain.CurrentDomain.Load("CleanArchMvc.Application");
-        service.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(applicationAssembly));
-        return service;
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(applicationAssembly));
+        return services;
     }
 
 }

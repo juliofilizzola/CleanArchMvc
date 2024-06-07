@@ -13,17 +13,17 @@ public class ProductCreateCommandHandler: IRequestHandler<ProductCreateCommand, 
     }
 
     public async Task<Product> Handle(ProductCreateCommand request, CancellationToken cancellationToken) {
-        var product = new Product(
-            request.Name,
-            request.Description, request.Price,
-            request.Image, request.Stock,
-            request.CategoryId);
+        var product = new Product(request.Name, request.Description, request.Price,
+            request.Stock, request.Image);
 
-        if (product == null) {
+        if (product == null)
+        {
             throw new ApplicationException($"Error creating entity.");
         }
-
-        product.CategoryId = request.CategoryId;
-        return await _productRepository.CreateAsync(product);
+        else
+        {
+            product.CategoryId = request.CategoryId;
+            return await _productRepository.CreateAsync(product);
+        }
     }
 }

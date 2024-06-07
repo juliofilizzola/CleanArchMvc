@@ -3,6 +3,8 @@
 services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
+    tty: true
+    restart: always
     environment:
       MSSQL_SA_PASSWORD: "SqlServer2019!"
       ACCEPT_EULA: "Y"

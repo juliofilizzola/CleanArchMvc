@@ -3,20 +3,23 @@ using CleanArchMvc.Application.DTO;
 using CleanArchMvc.Application.Interfaces;
 using CleanArchMvc.Application.Products.Commands;
 using CleanArchMvc.Application.Products.Queries;
+using CleanArchMvc.Domain.Interfaces;
 using MediatR;
 
 namespace CleanArchMvc.Application.Services
 {
-    public class ProductService(IMediator mediator, IMapper mapper) : IProductService {
-        private readonly IMediator _mediator = mediator;
-        private readonly IMapper   _mapper   = mapper;
-        public async Task<IEnumerable<ProductDto>> GetProducts() {
-            var products = new GetProductsQuery();
-            if (products == null) {
-                throw new ApplicationException($"Entity could not be loaded");
-            }
+    public class ProductService(IMediator mediator, IMapper mapper, IProductRepository productRepository) : IProductService {
+        private readonly IMediator          _mediator = mediator;
+        private readonly IMapper            _mapper   = mapper;
 
-            var result = await _mediator.Send(products);
+        public async Task<IEnumerable<ProductDto>> GetProducts() {
+            var productsQuery = new GetProductsQuery();
+
+            if (productsQuery == null)
+                throw new Exception($"Entity could not be loaded.");
+
+            var result = await _mediator.Send(productsQuery);
+
             return _mapper.Map<IEnumerable<ProductDto>>(result);
         }
 
